@@ -12,7 +12,7 @@
 		</h1>
 
 		<div class="col-lg-4 mx-auto" style="font-size: 14px;">
-			<p class="lead mb-4">DINAS KEBUDAYAAN, KEPEMUDAAN, OLAHRAGA DAN PARIWISATA KABUPATEN PULANG PISAU.</p>
+			<p class="lead mb-4">DINAS KEBUDAYAAN, KEPEMUDAAN DAN OLAHRAGA, DAN PARIWISATA KABUPATEN PULANG PISAU.</p>
 			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
 				<a href="/dtw" class="btn btn-light btn-md px-4 gap-3 rounded-5">
 					EXPLORE BASENGOK

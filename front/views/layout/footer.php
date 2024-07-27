@@ -1,7 +1,7 @@
 </main>
 <footer class="footer mt-auto py-3 text-center">
   <div class="container">
-    <span class="text-white">Copyright © 2024 Dinas Kebudayaan, Kepemudaan,<br /> Olahraga dan Pariwisata Kabupaten Pulang Pisau</span>
+    <span class="text-white">Copyright © 2024 Dinas Kebudayaan, Kepemudaan dan Olahraga,<br /> dan Pariwisata Kabupaten Pulang Pisau</span>
   </div>
 </footer>
 
