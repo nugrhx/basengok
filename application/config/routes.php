@@ -59,5 +59,6 @@ $route['admin/admin'] = 'admin';
 $route['admin/dtw'] = 'dtw';
 $route['admin/amenitas'] = 'amenitas';
 $route['admin/kategori'] = 'kategori';
+$route['admin/pendukung'] = 'pendukung';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
