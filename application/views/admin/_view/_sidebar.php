@@ -13,7 +13,7 @@
 
         <!-- Sidebar Menu for ADMIN -->
         <li class="nav-item">
-          <a href="<?= base_url(); ?>admin" <?php if ($this->uri->segment(1) == "admin") {
+          <a href="<?= base_url(); ?>admin" <?php if ($this->uri->segment(2) == "") {
                                               echo 'class="nav-link active"';
                                             } else {
                                               echo 'class="nav-link"';
@@ -26,7 +26,7 @@
         </li>
         <li class="nav-item">
 
-          <a href="<?= base_url(); ?>admin/dtw" <?php if ($this->uri->segment(1) == "admin/dtw") {
+          <a href="<?= base_url(); ?>admin/dtw" <?php if ($this->uri->segment(2) == "dtw") {
                                                   echo 'class="nav-link active"';
                                                 } else {
                                                   echo 'class="nav-link"';
@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="<?= base_url(); ?>admin/amenitas" <?php if ($this->uri->segment(1) == "admin/amenitas") {
+          <a href="<?= base_url(); ?>admin/amenitas" <?php if ($this->uri->segment(2) == "amenitas") {
                                                         echo 'class="nav-link active"';
                                                       } else {
                                                         echo 'class="nav-link"';
@@ -46,7 +46,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="<?= base_url(); ?>admin/kategori" <?php if ($this->uri->segment(1) == "admin/kategori") {
+          <a href="<?= base_url(); ?>admin/kategori" <?php if ($this->uri->segment(2) == "kategori") {
                                                         echo 'class="nav-link active"';
                                                       } else {
                                                         echo 'class="nav-link"';
@@ -55,18 +55,18 @@
             <p>Kategori</p>
           </a>
         </li>
-        <!-- <li class="nav-item">
-          <a href="<?= base_url(); ?>pendukung" <?php if ($this->uri->segment(1) == "admin/pendukung") {
-                                                  echo 'class="nav-link active"';
-                                                } else {
-                                                  echo 'class="nav-link"';
-                                                } ?>>
+        <li class="nav-item">
+          <a href="<?= base_url(); ?>admin/pendukung" <?php if ($this->uri->segment(2) == "pendukung") {
+                                                        echo 'class="nav-link active"';
+                                                      } else {
+                                                        echo 'class="nav-link"';
+                                                      } ?>>
             <i class="fa fa-user-alt nav-icon"></i>
             <p>Pendukung</p>
           </a>
-        </li> -->
+        </li>
         <!-- <li class="nav-item">
-          <a href="<?= base_url(); ?>user" <?php if ($this->uri->segment(1) == "user") {
+          <a href="<?= base_url(); ?>user" <?php if ($this->uri->segment(2) == "user") {
                                               echo 'class="nav-link active"';
                                             } else {
                                               echo 'class="nav-link"';

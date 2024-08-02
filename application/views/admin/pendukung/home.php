@@ -8,10 +8,10 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-4">
-                    <button class=" form-control btn btn-success" onclick="add_kategori()"><i class="fa fa-plus fa-sm"></i> Tambah Data</button>
+                    <button class=" form-control btn btn-success" onclick="add_pendukung()"><i class="fa fa-plus fa-sm"></i> Tambah Data</button>
                   </div>
                   <!-- <div class="col-md-3">
-                    <a href="<?php echo base_url('kategori/export'); ?>" class="form-control btn btn-default"><i class="fa fa-file-excel fa-sm"></i> Export Data Excel</a>
+                    <a href="<?php echo base_url('pendukung/export'); ?>" class="form-control btn btn-default"><i class="fa fa-file-excel fa-sm"></i> Export Data Excel</a>
                   </div>
                   <div class="col-md-2">
                     <button class="form-control btn btn-default" data-toggle="modal" data-target="#import-dtw"><i class="fa fa-file-pdf fa-sm"></i> Cetak PDF</button>
@@ -26,8 +26,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Kategori</th>
-                      <th>Tipe</th>
+                      <th>Data Pendukung</th>
                       <th style="width:170px;">Action</th>
                     </tr>
                   </thead>
@@ -36,8 +35,7 @@
                   <tfoot>
                     <tr>
                       <th>No</th>
-                      <th>Kategori</th>
-                      <th>Tipe</th>
+                      <th>Data Pendukung</th>
                       <th style="width:170px;">Action</th>
                     </tr>
                   </tfoot>
@@ -72,7 +70,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-              "url": "<?php echo site_url('kategori/ajax_list') ?>",
+              "url": "<?php echo site_url('pendukung/ajax_list') ?>",
               "type": "POST"
             },
 
@@ -88,7 +86,7 @@
           table.ajax.reload(null, false); //reload datatable ajax 
         }
 
-        function add_kategori() {
+        function add_pendukung() {
           save_method = 'add';
           $('#form')[0].reset(); // reset form on modals
           $('.form-group').removeClass('has-error'); // clear error class
@@ -104,9 +102,9 @@
           var url;
 
           if (save_method == 'add') {
-            url = "<?php echo site_url('kategori/ajax_add') ?>";
+            url = "<?php echo site_url('pendukung/ajax_add') ?>";
           } else {
-            url = "<?php echo site_url('kategori/ajax_update') ?>";
+            url = "<?php echo site_url('pendukung/ajax_update') ?>";
           }
 
           // ajax adding data to database
@@ -142,7 +140,7 @@
           });
         }
 
-        function edit_kategori(id) {
+        function edit_pendukung(id) {
           save_method = 'update';
           $('#form')[0].reset(); // reset form on modals
           $('.form-group').removeClass('has-error'); // clear error class
@@ -150,12 +148,12 @@
 
           //Ajax Load data from ajax
           $.ajax({
-            url: "<?php echo site_url('kategori/ajax_edit/') ?>/" + id,
+            url: "<?php echo site_url('pendukung/ajax_edit/') ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
-              $('[name="id_kat"]').val(data.id_kat);
-              $('[name="kategori"]').val(data.kategori);
+              $('[name="id_pen"]').val(data.id_pen);
+              $('[name="pendukung"]').val(data.pendukung);
               $('[name="tipe"]').val(data.tipe);
               $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
               $('.modal-title').text('Edit DTW'); // Set title to Bootstrap modal title
@@ -167,11 +165,11 @@
           });
         }
 
-        function delete_kategori(id) {
+        function delete_pendukung(id) {
           if (confirm('Anda yakin ingin menghapus data ini?')) {
             // ajax delete data to database
             $.ajax({
-              url: "<?php echo site_url('kategori/ajax_delete') ?>/" + id,
+              url: "<?php echo site_url('pendukung/ajax_delete') ?>/" + id,
               type: "POST",
               dataType: "JSON",
               success: function(data) {
