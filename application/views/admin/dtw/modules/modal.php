@@ -21,7 +21,7 @@
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body form">
-                  <form action="#" id="form" class="form-horizontal">
+                  <form action="#" id="form" class="form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" value="" name="id_fak" />
                     <div class="form-body">
                       <div class="form-group has-error">
@@ -55,7 +55,8 @@
                             }
                             echo $options;
                             ?>
-                          </select> <span class="help-block"></span>
+                          </select>
+                          <span class="help-block"></span>
                         </div>
                       </div>
                       <div class="form-group has-error">
@@ -68,7 +69,7 @@
                       <div class="form-group has-error">
                         <label class="col">Foto</label>
                         <div class="col">
-                          <input id="foto" type="file" accept="image/*" name="foto" multiple="multiple" />
+                          <input name="foto" type="file" accept="image/*" multiple="multiple" />
                           <span class="help-block"></span>
                         </div>
                       </div>

@@ -1,24 +1,35 @@
 <div class="container">
-	<div class="px-4 py-5 my-5 text-center">
+	<div class="pt-5">
+		<div class="row">
+			<?php
+			// Fetch data from the dtw table
+			$query = $this->db->get('amenitas');
+			$amenitasData = $query->result();
 
-		<img class="d-block mx-auto mb-4 z-n1" src="<?= base_url('assets/img/logo.png') ?>" alt="" width="54px">
-
-		<p class="px-4">
-			Selamat Datang di
-		</p>
-
-		<h1 style="font-weight: 600; font-size: 4rem;">
-			BASENGOK
-		</h1>
-
-		<div class="col-lg-4 mx-auto" style="font-size: 14px;">
-			<p class="lead mb-4">DINAS KEBUDAYAAN, KEPEMUDAAN DAN OLAHRAGA, DAN PARIWISATA KABUPATEN PULANG PISAU.</p>
-			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-				<a href="/dtw" class="btn btn-light btn-md px-4 gap-3 rounded-5">
-					EXPLORE BASENGOK
-					<i data-feather="chevron-right" class="text-black"></i>
-				</a>
-			</div>
+			foreach ($amenitasData as $amenitas) {
+			?>
+				<div class="col-sm-4">
+					<div class="card">
+						<img src="<?php echo base_url('/assets/uploads/images/atv/1.jpg'); ?>" class="card-img-top" alt="">
+						<div class="card-body">
+							<h5 class="card-title"><strong><?php echo $amenitas->nama; ?></strong></h5>
+							<p class="card-text pt-2"><?php echo $amenitas->lokasi; ?></p>
+							<p class="card-text pt-2"><?php echo $amenitas->kategori; ?></p>
+							<div class="row">
+								<div class="col-6">
+									<a href="<?php echo $amenitas->kontak; ?>" class="btn btn-block btn-primary">Kontak</a>
+								</div>
+								<div class="col-6">
+									<a href="<?php echo $amenitas->maps; ?>" target="_blank" class="btn btn-block btn-outline-primary">Maps</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php
+			}
+			?>
 		</div>
 	</div>
+</div>
 </div>

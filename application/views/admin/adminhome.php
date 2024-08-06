@@ -14,7 +14,7 @@
                 <div class="icon">
                   <i class="fa fa-solid fa-map fa-xl"></i>
                 </div>
-                <a href="<?= base_url(); ?>dtw" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?= base_url(); ?>admin/dtw" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./small card -->
@@ -28,7 +28,7 @@
                 <div class="icon">
                   <i class="fa fa-solid fa-book fa-xl"></i>
                 </div>
-                <a href="<?= base_url(); ?>amenitas" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?= base_url(); ?>admin/amenitas" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./small card -->
             <div class="col-lg-4 col-6">
@@ -41,7 +41,7 @@
                 <div class="icon">
                   <i class="fa fa-solid fa-book fa-xl"></i>
                 </div>
-                <a href="<?= base_url(); ?>kategori" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?= base_url(); ?>admin/kategori" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>

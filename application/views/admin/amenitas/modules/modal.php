@@ -44,6 +44,24 @@
                     </select> <span class="help-block"></span>
                   </div>
                 </div>
+                <div class="form-group has-error">
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="col">Kontak</label>
+                      <div class="col">
+                        <input name="kontak" placeholder="Kontak Amenitas" class="form-control" type="text" required>
+                        <span class="help-block"></span>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label class="col">Maps</label>
+                      <div class="col">
+                        <input name="maps" placeholder="URL Google Maps Amenitas" class="form-control" type="text" required>
+                        <span class="help-block"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

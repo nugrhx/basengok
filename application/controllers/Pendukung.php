@@ -35,13 +35,12 @@ class Pendukung extends AUTH_Controller
       $row = array();
       $row[] = $no++;
       $row[] = $pendukung->pendukung;
-      $row[] = $pendukung->tipe;
 
       //add html for action
       $row[] = '
-            <a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_pendukung(' . "'" . $pendukung->id_kat . "'" . ')"><i class="fa fa-edit fa-xs"></i> Edit</a>
+            <a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_pendukung(' . "'" . $pendukung->id_pen . "'" . ')"><i class="fa fa-edit fa-xs"></i> Edit</a>
         
-            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_pendukung(' . "'" . $pendukung->id_kat . "'" . ')"><i class="fa fa-trash fa-xs"></i> Delete</a>';
+            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_pendukung(' . "'" . $pendukung->id_pen . "'" . ')"><i class="fa fa-trash fa-xs"></i> Delete</a>';
 
       // check if soft_delete status is 0
       if ($pendukung->soft_delete == 0) {
@@ -67,13 +66,28 @@ class Pendukung extends AUTH_Controller
 
   public function ajax_add()
   {
-    $this->_validate();
-    $data = array(
-      'pendukung'      => $this->input->post('pendukung'),
-      'tipe' => $this->input->post('tipe'),
-    );
-    $insert = $this->pendukung->save($data);
-    echo json_encode(array("status" => TRUE));
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $uploadDir = 'assets/uploads/pendukung/';
+      $errors = [];
+      $uploadedFiles = [];
+
+      foreach ($_FILES['file']['tmp_name'] as $key => $tmpName) {
+        $fileName = basename($_FILES['file']['name'][$key]);
+        $targetFilePath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($tmpName, $targetFilePath)) {
+          $uploadedFiles[] = $fileName; // Collect uploaded file names
+        } else {
+          $errors[] = "Error uploading file: $fileName";
+        }
+      }
+
+      if (empty($errors)) {
+        echo json_encode(['status' => 'success', 'files' => $uploadedFiles]);
+      } else {
+        echo json_encode(['status' => 'error', 'errors' => $errors]);
+      }
+    }
   }
 
   public function ajax_update()
@@ -81,9 +95,32 @@ class Pendukung extends AUTH_Controller
     $this->_validate();
     $data = array(
       'pendukung' => $this->input->post('pendukung'),
-      'tipe' => $this->input->post('tipe'),
     );
-    $this->pendukung->update(array('id_kat' => $this->input->post('id_kat')), $data);
+
+    // Handle file input
+    if (!empty($_FILES['file']['name'])) {
+      $config['upload_path'] = './uploads/'; // Specify the upload directory
+      $config['allowed_types'] = 'gif|jpg|png|pdf|xlsx|xls|doc|docx';
+      $config['max_size'] = 2048; // Specify the maximum file size in kilobytes
+
+      $this->load->library('upload', $config);
+
+      if (!$this->upload->do_upload('file')) {
+        $data['inputerror'][] = 'file';
+        $data['error_string'][] = $this->upload->display_errors('', '');
+        $data['status'] = FALSE;
+      } else {
+        $upload_data = $this->upload->data();
+        $data['file'] = $upload_data['file_name'];
+      }
+    }
+
+    if ($data['status'] === FALSE) {
+      echo json_encode($data);
+      exit();
+    }
+
+    $this->pendukung->update(array('id_pen' => $this->input->post('id_pen')), $data);
     echo json_encode(array("status" => TRUE));
   }
 
@@ -102,13 +139,7 @@ class Pendukung extends AUTH_Controller
 
     if ($this->input->post('pendukung') == '') {
       $data['inputerror'][] = 'pendukung';
-      $data['error_string'][] = 'pendukung is required';
-      $data['status'] = FALSE;
-    }
-
-    if ($this->input->post('tipe') == '') {
-      $data['inputerror'][] = 'tipe';
-      $data['error_string'][] = 'Tipe is required';
+      $data['error_string'][] = 'Pendukung is required';
       $data['status'] = FALSE;
     }
 

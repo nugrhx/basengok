@@ -43,10 +43,10 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+                <span class="fa fa-lock toggle-password"></span>
               </div>
             </div>
           </div>
@@ -78,5 +78,18 @@
 <script src="<?= base_url('assets'); ?>/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets'); ?>/vendor/dist/js/adminlte.min.js"></script>
+
+<script>
+  $("body").on('click', '.toggle-password', function() {
+    $(this).toggleClass("fas fa-unlock");
+    var input = $("#password");
+    if (input.attr("type") === "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+
+  });
+</script>
 
 </html>

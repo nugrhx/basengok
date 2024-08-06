@@ -32,6 +32,8 @@
                       <th>Nama</th>
                       <th>Lokasi</th>
                       <th>Kategori</th>
+                      <th>Kontak</th>
+                      <th>Maps</th>
                       <th style="width:170px;">Action</th>
                     </tr>
                   </thead>
@@ -43,6 +45,8 @@
                       <th>Nama</th>
                       <th>Lokasi</th>
                       <th>Kategori</th>
+                      <th>Kontak</th>
+                      <th>Maps</th>
                       <th style="width:170px;">Action</th>
                     </tr>
                   </tfoot>
@@ -163,6 +167,8 @@
               $('[name="nama"]').val(data.nama);
               $('[name="lokasi"]').val(data.lokasi);
               $('[name="kategori"]').val(data.kategori);
+              $('[name="kontak"]').val(data.kontak);
+              $('[name="maps"]').val(data.maps);
               $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
               $('.modal-title').text('Edit fakultas'); // Set title to Bootstrap modal title
 

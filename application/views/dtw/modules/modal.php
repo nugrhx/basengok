@@ -64,8 +64,7 @@
       <div class="modal-footer">
         <div class="row">
           <div class="col">
-            <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
           </div>
         </div>
       </div>

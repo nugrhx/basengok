@@ -4,8 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Amenitas_model extends CI_Model
 {
   var $table = 'amenitas';
-  var $column_order = array('nama', 'kategori', 'lokasi', null); //set column field database for datatable orderable
-  var $column_search = array('nama', 'kategori', 'lokasi',); //set column field database for datatable searchable just firstname , lastname , address are searchable
+  var $column_order = array('nama', 'kategori', 'lokasi', 'kontak', 'maps', null); //set column field database for datatable orderable
+  var $column_search = array('nama', 'kategori', 'lokasi', 'kontak', 'maps',); //set column field database for datatable searchable just firstname , lastname , address are searchable
   var $order = array('id_amn' => 'asc'); // default order 
 
   public function __construct()

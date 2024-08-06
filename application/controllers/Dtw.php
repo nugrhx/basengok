@@ -75,7 +75,6 @@ class Dtw extends AUTH_Controller
       'deskripsi' => $this->input->post('deskripsi'),
       'lokasi'    => $this->input->post('lokasi'),
       'kategori'  => $this->input->post('kategori'),
-      'foto'  => $this->input->post('foto'),
     );
     $insert = $this->dtw->save($data);
     echo json_encode(array("status" => TRUE));
@@ -89,7 +88,6 @@ class Dtw extends AUTH_Controller
       'deskripsi' => $this->input->post('deskripsi'),
       'lokasi' => $this->input->post('lokasi'),
       'kategori' => $this->input->post('kategori'),
-      'foto'  => $this->input->post('foto'),
     );
     $this->dtw->update(array('id_dtw' => $this->input->post('id_dtw')), $data);
     echo json_encode(array("status" => TRUE));
@@ -132,32 +130,9 @@ class Dtw extends AUTH_Controller
       $data['status'] = FALSE;
     }
 
-    if ($this->input->post('foto') == '') {
-      $data['inputerror'][] = 'foto';
-      $data['error_string'][] = 'foto is required';
-      $data['status'] = FALSE;
-    }
-
     if ($data['status'] === FALSE) {
       echo json_encode($data);
       exit();
-    }
-  }
-
-  function upload_image()
-  {
-    $config['upload_path'] = './assets/images/upload/'; //path folder
-    $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
-    $config['encrypt_name'] = TRUE;
-
-    $this->load->library('upload', $config);
-    for ($i = 1; $i <= 5; $i++) {
-      if (!empty($_FILES['gambar' . $i]['name'])) {
-        if (!$this->upload->do_upload('gambar' . $i))
-          $this->upload->display_errors();
-        else
-          echo "Gambar berhasil di upload";
-      }
     }
   }
 }

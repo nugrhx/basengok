@@ -40,6 +40,8 @@ class Amenitas extends AUTH_Controller
       $row[] = $amenitas->nama;
       $row[] = $amenitas->lokasi;
       $row[] = $amenitas->kategori;
+      $row[] = $amenitas->kontak;
+      $row[] = $amenitas->maps;
 
       //add html for action
       $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_amenitas(' . "'" . $amenitas->id_amn . "'" .
@@ -72,6 +74,8 @@ class Amenitas extends AUTH_Controller
       'nama' => $this->input->post('nama'),
       'lokasi' => $this->input->post('lokasi'),
       'kategori' => $this->input->post('kategori'),
+      'kontak' => $this->input->post('kontak'),
+      'maps' => $this->input->post('maps'),
     );
     $insert = $this->amenitas->save($data);
     echo json_encode(array("status" => TRUE));
@@ -84,6 +88,8 @@ class Amenitas extends AUTH_Controller
       'nama' => $this->input->post('nama'),
       'lokasi' => $this->input->post('lokasi'),
       'kategori' => $this->input->post('kategori'),
+      'kontak' => $this->input->post('kontak'),
+      'maps' => $this->input->post('maps'),
     );
     $this->amenitas->update(array('id_amn' => $this->input->post('id_amn')), $data);
     echo json_encode(array("status" => TRUE));
@@ -120,58 +126,21 @@ class Amenitas extends AUTH_Controller
       $data['status'] = FALSE;
     }
 
+    if ($this->input->post('kontak') == '') {
+      $data['inputerror'][] = 'kontak';
+      $data['error_string'][] = 'kontak is required';
+      $data['status'] = FALSE;
+    }
+
+    if ($this->input->post('maps') == '') {
+      $data['inputerror'][] = 'maps';
+      $data['error_string'][] = 'maps is required';
+      $data['status'] = FALSE;
+    }
+
     if ($data['status'] === FALSE) {
       echo json_encode($data);
       exit();
     }
-  }
-
-  public function excel()
-  {
-    $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
-    $sheet->setCellValue('A1', 'No');
-    $sheet->setCellValue('B1', 'Nama');
-    $sheet->setCellValue('C1', 'Lokasi');
-    $sheet->setCellValue('D1', 'Kategori');
-
-    $spreadsheet->getActiveSheet()->getStyle('E')
-      ->getNumberFormat()
-      ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-
-    $styleArrayFirstRow = [
-      'font' => [
-        'bold' => true,
-      ]
-    ];
-
-    $highestColumn = $sheet->getHighestColumn();
-    //set first row bold
-    $sheet->getStyle('A1:' . $highestColumn . '1')->applyFromArray($styleArrayFirstRow);
-
-    $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(16);
-    $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
-    $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
-    $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
-
-    $mhs = $this->amenitas->getAll();
-    $no = 1;
-    $x = 2;
-    foreach ($mhs as $row) {
-      $sheet->setCellValue('A' . $x, $no++);
-      $sheet->setCellValue('B' . $x, $row->nim);
-      $sheet->setCellValue('C' . $x, $row->nama);
-      $sheet->setCellValue('D' . $x, $row->tempat);
-      $sheet->setCellValue('E' . $x, $row->tanggal);
-      $x++;
-    }
-    $writer = new Xlsx($spreadsheet);
-    $filename = 'data_amenitas-' . date('Y-m-d');;
-
-    header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
-    header('Cache-Control: max-age=0');
-
-    $writer->save('php://output');
   }
 }
