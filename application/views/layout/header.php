@@ -39,12 +39,19 @@
 <?php
 // Check if the current page is the home page
 $isHomePage = ($_SERVER['REQUEST_URI'] === '/basengok/');
-$bgImage = base_url('assets/img/landing.jpg');
+$bgImage = base_url('assets/img/bg.jpg');
 
 // If it is the home page, include the style
 if ($isHomePage) {
   echo '<body class="d-flex flex-column h-100">';
-  echo '<style>body { background-image: url("' . $bgImage . '"); }</style>';
+  echo '<style>
+          body {
+                background-image: url("' . $bgImage . '"); 
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                }
+          </style>';
 } else {
   echo '<body class="d-flex flex-column h-100">';
 }
