@@ -1,10 +1,20 @@
 </main>
 <footer class="footer mt-auto py-3 text-center">
   <div class="container">
-    <span class="text-white font-weight-normal" style="font-size: 12px;">Copyright © 2024 Dinas Kebudayaan, Kepemudaan dan Olahraga,<br /> dan Pariwisata Kabupaten Pulang Pisau</span>
+    <?php
+    // Check if the current page is the home page
+    $isHomePage = ($this->uri->segment(1) == "");
+    $tahun = date('Y');
+
+    // If it is the home page, include the style
+    if ($isHomePage) {
+      echo '<span class="text-white font-weight-normal" style="font-size: 12px;">Copyright &copy; "' . $tahun . '" Dinas Kebudayaan, Kepemudaan dan Olahraga,<br /> dan Pariwisata Kabupaten Pulang Pisau</span>';
+    } else {
+      echo '';
+    }
+    ?>
   </div>
 </footer>
-
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
