@@ -9,7 +9,7 @@
 
 		&nbsp;
 
-		<p class="px-4">
+		<p class="px-2">
 			Selamat Datang di
 		</p>
 
@@ -17,10 +17,10 @@
 			BASENGOK
 		</h1>
 
-		<div class="col-lg-4 mx-auto" style="font-size: 14px;">
-			<p class="lead mb-4">DINAS KEBUDAYAAN, KEPEMUDAAN DAN OLAHRAGA, DAN PARIWISATA KABUPATEN PULANG PISAU.</p>
+		<div class="col-lg-4 mx-auto">
+			<p class="lead mb-4" style="font-size: 18px;">DINAS KEBUDAYAAN, KEPEMUDAAN DAN OLAHRAGA, DAN PARIWISATA KABUPATEN PULANG PISAU.</p>
 			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-				<a href="/dtw" class="btn btn-light btn-md px-4 gap-3 rounded-5">
+				<a href="<?= base_url(); ?>dtw" class="btn btn-light btn-md px-4 gap-3 rounded-5" style="font-size: 14px;">
 					EXPLORE BASENGOK
 					<i data-feather="chevron-right" class="text-black"></i>
 				</a>
