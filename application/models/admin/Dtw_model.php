@@ -103,4 +103,17 @@ class Dtw_model extends CI_Model
   {
     return $this->db->insert_batch($this->table, $data);
   }
+
+  function save_upload($nama, $deskripsi, $lokasi, $kategori, $foto)
+  {
+    $data = array(
+      'nama'      => $nama,
+      'deskripsi' => $deskripsi,
+      'lokasi'    => $lokasi,
+      'kategori'  => $kategori,
+      'foto'      => $foto
+    );
+    $this->db->insert($this->table, $data);
+    return $this->db->insert_id();
+  }
 }

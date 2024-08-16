@@ -4,8 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Pendukung_model extends CI_Model
 {
   var $table = 'pendukung';
-  var $column_order = array('pendukung',  null); //set column field database for datatable orderable
-  var $column_search = array('pendukung',); //set column field database for datatable searchable just firstname , lastname , address are searchable
+  var $column_order = array('nama', 'file',  null); //set column field database for datatable orderable
+  var $column_search = array('nama', 'file',); //set column field database for datatable searchable just firstname , lastname , address are searchable
   var $order = array('id_pen' => 'asc'); // default order 
 
   public function __construct()
@@ -79,11 +79,22 @@ class Pendukung_model extends CI_Model
     return $query->row();
   }
 
-  public function save($data)
+  // public function save($data)
+  // {
+  //   $this->db->insert($this->table, $data);
+  //   return $this->db->insert_id();
+  // }
+
+  function save_upload($nama, $file)
   {
-    $this->db->insert($this->table, $data);
-    return $this->db->insert_id();
+    $data = array(
+      'nama' => $nama,
+      'file' => $file
+    );
+    $result = $this->db->insert('pendukung', $data);
+    return $result;
   }
+
 
   public function update($where, $data)
   {

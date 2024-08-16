@@ -26,7 +26,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Data Pendukung</th>
+                <th>Nama File Pendukung</th>
                 <th style="width:170px;">Action</th>
               </tr>
             </thead>
@@ -35,7 +35,7 @@
             <tfoot>
               <tr>
                 <th>No</th>
-                <th>Data Pendukung</th>
+                <th>Nama File Pendukung</th>
                 <th style="width:170px;">Action</th>
               </tr>
             </tfoot>
@@ -64,7 +64,6 @@
 
       "searching": true,
       "autoWidth": true,
-
       "processing": true, //Feature control the processing indicator.
       "serverSide": true, //Feature control DataTables' server-side processing mode.
 
@@ -107,11 +106,13 @@
     var formData = new FormData($('#form')[0]);
 
     $.ajax({
-      url: "<?php echo site_url('pendukung/ajax_add') ?>", // URL to your PHP controller
+      url: "<?php echo site_url('pendukung/do_upload') ?>", // URL to your PHP controller
       type: 'POST',
-      data: formData,
-      contentType: false,
+      data: formData, //penggunaan FormData
       processData: false,
+      contentType: false,
+      cache: false,
+      async: false,
       success: function(data) {
         var response = JSON.parse(data);
         if (response.status === 'success') {

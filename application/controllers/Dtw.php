@@ -38,6 +38,7 @@ class Dtw extends AUTH_Controller
       $row[] = $dtw->deskripsi;
       $row[] = $dtw->lokasi;
       $row[] = $dtw->kategori;
+      $row[] = $dtw->foto;
 
       //add html for action
       $row[] = '
@@ -67,17 +68,48 @@ class Dtw extends AUTH_Controller
     echo json_encode($data);
   }
 
+  function do_upload()
+  {
+    $config['upload_path'] = "./assets/uploads/images/dtw";
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['encrypt_name'] = TRUE;
+
+    $this->load->library('upload', $config);
+    if ($this->upload->do_upload("file")) {
+      $data = array('upload_data' => $this->upload->data());
+
+      $nama      = $this->input->post('nama');
+      $deskripsi = $this->input->post('deskripsi');
+      $lokasi    = $this->input->post('lokasi');
+      $kategori  = $this->input->post('kategori');
+      $foto      = $data['upload_data']['file_name'];
+
+      $result = $this->dtw->save_upload($nama, $deskripsi, $lokasi, $kategori, $foto);
+      echo json_decode($result);
+    }
+  }
+
   public function ajax_add()
   {
+    $config['upload_path'] = "./assets/images/dtw";
+    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+    $config['encrypt_name'] = TRUE;
+
+    $this->load->library('upload', $config);
+
     $this->_validate();
-    $data = array(
-      'nama'      => $this->input->post('nama'),
-      'deskripsi' => $this->input->post('deskripsi'),
-      'lokasi'    => $this->input->post('lokasi'),
-      'kategori'  => $this->input->post('kategori'),
-    );
-    $insert = $this->dtw->save($data);
-    echo json_encode(array("status" => TRUE));
+    if ($this->upload->do_upload("file")) {
+      $data = array(
+        'nama'      => $this->input->post('nama'),
+        'deskripsi' => $this->input->post('deskripsi'),
+        'lokasi'    => $this->input->post('lokasi'),
+        'kategori'  => $this->input->post('kategori'),
+        'foto'      => $data['upload_data']['foto']
+      );
+      $insert = $this->dtw->save($data);
+      echo json_encode(array("status" => TRUE));
+    } else
+      $data['status'] = FALSE;
   }
 
   public function ajax_update()
@@ -88,6 +120,7 @@ class Dtw extends AUTH_Controller
       'deskripsi' => $this->input->post('deskripsi'),
       'lokasi' => $this->input->post('lokasi'),
       'kategori' => $this->input->post('kategori'),
+      'foto'  => $this->input->post('foto'),
     );
     $this->dtw->update(array('id_dtw' => $this->input->post('id_dtw')), $data);
     echo json_encode(array("status" => TRUE));
@@ -127,6 +160,12 @@ class Dtw extends AUTH_Controller
     if ($this->input->post('kategori') == '') {
       $data['inputerror'][] = 'kategori';
       $data['error_string'][] = 'kategori is required';
+      $data['status'] = FALSE;
+    }
+
+    if ($this->input->post('foto') == '') {
+      $data['inputerror'][] = 'foto';
+      $data['error_string'][] = 'foto is required';
       $data['status'] = FALSE;
     }
 

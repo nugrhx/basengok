@@ -11,9 +11,16 @@
           <input type="hidden" value="" name="id_pen" />
           <div class="form-body">
             <div class="form-group has-error">
+              <label class="col">Nama Data Pendukung</label>
+              <div class="col">
+                <input name="nama" placeholder="Nama Data Pendukung" class="form-control" type="text" required>
+                <span class="help-block"></span>
+              </div>
+            </div>
+            <div class="form-group has-error">
               <label class="col">File Pendukung</label>
               <div class="col">
-                <input type="file" class="form-control" name="file[]" multiple="multiple" required>
+                <input name="file" placeholder="File Pendukung" class="form-control" type="file" required>
                 <span class="help-block"></span>
               </div>
             </div>

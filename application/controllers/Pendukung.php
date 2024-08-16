@@ -64,29 +64,37 @@ class Pendukung extends AUTH_Controller
     echo json_encode($data);
   }
 
-  public function ajax_add()
+  public function do_upload()
   {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $uploadDir = 'assets/uploads/pendukung/';
-      $errors = [];
-      $uploadedFiles = [];
+    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //   $uploadDir = 'assets/uploads/pendukung/';
+    //   $errors = [];
+    //   $uploadedFiles = [];
 
-      foreach ($_FILES['file']['tmp_name'] as $key => $tmpName) {
-        $fileName = basename($_FILES['file']['name'][$key]);
-        $targetFilePath = $uploadDir . $fileName;
+    //   foreach ($_FILES['file']['tmp_name'] as $key => $tmpName) {
+    //     $fileName = basename($_FILES['file']['name'][$key]);
+    //     $targetFilePath = $uploadDir . $fileName;
 
-        if (move_uploaded_file($tmpName, $targetFilePath)) {
-          $uploadedFiles[] = $fileName; // Collect uploaded file names
-        } else {
-          $errors[] = "Error uploading file: $fileName";
-        }
-      }
+    //     if (move_uploaded_file($tmpName, $targetFilePath)) {
+    //       $uploadedFiles[] = $fileName; // Collect uploaded file names
+    //     } else {
+    //       $errors[] = "Error uploading file: $fileName";
+    //     }
+    //   }
 
-      if (empty($errors)) {
-        echo json_encode(['status' => 'success', 'files' => $uploadedFiles]);
-      } else {
-        echo json_encode(['status' => 'error', 'errors' => $errors]);
-      }
+    $config['upload_path'] = ".assets/uploads/pendukung/";
+    $config['allowed_types'] = 'pdf|doc|docx|xls|xlsx|ppt|pptx|jpg|jpeg|webp|png';
+    $config['encrypt_name'] = TRUE;
+
+    $this->load->library('upload', $config);
+    if ($this->upload->do_upload("file")) {
+      $data = array('upload_data' => $this->upload->data());
+
+      $nama = $this->input->post('nama');
+      $file = $data['upload_data']['file_name'];
+
+      $result = $this->pendukung->save_upload($judul, $image); //kirim value ke model 
+      echo json_decode($result);
     }
   }
 

@@ -1,19 +1,5 @@
-          <script type="text/javascript">
-            function readURL(input) {
-              if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                  $('#foto').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-              }
-            }
-          </script>
-
-          <!-- Bootstrap modal -->
-          <div class="modal fade" id="modal_form" role="dialog">
+          <!-- Bootstrap modal
+          <div class="modal fade" id="submit" role="dialog">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -69,7 +55,7 @@
                       <div class="form-group has-error">
                         <label class="col">Foto</label>
                         <div class="col">
-                          <input name="foto" type="file" accept="image/*" multiple="multiple" />
+                          <input name="foto" id="foto" type="file" accept="image/*" required />
                           <span class="help-block"></span>
                         </div>
                       </div>
@@ -79,12 +65,11 @@
                 <div class="modal-footer">
                   <div class="row">
                     <div class="col">
-                      <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+                      <button type="button" id="btn_upload" type="submit" class="btn btn-primary">Save</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
                 </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
-          <!-- End Bootstrap modal -->
+              </div>
+            </div>
+          </div> -->
