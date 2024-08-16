@@ -3,6 +3,7 @@
 		<div class="row">
 			<?php
 			// Fetch data from the dtw table
+			$this->db->where('soft_delete', 0);
 			$query = $this->db->get('dtw');
 			$dtwData = $query->result();
 
@@ -13,7 +14,13 @@
 						<img src="<?php echo base_url('/assets/uploads/images/atv/1.jpg'); ?>" class="card-img-top" alt="">
 						<div class="card-body">
 							<h5 class="card-title"><strong><?php echo $dtw->nama; ?></strong></h5>
-							<p class="card-text pt-2"><?php echo $dtw->deskripsi; ?></p>
+							<p class="card-text pt-2">
+								<?php
+								$string = $dtw->deskripsi;
+								$desc = character_limiter($string, 100);
+								echo $desc;
+								?>
+							</p>
 							<a href="#" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal">Lihat Detail</a>
 						</div>
 					</div>
