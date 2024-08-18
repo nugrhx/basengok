@@ -29,11 +29,12 @@ class Kategori extends AUTH_Controller
   {
 
     $list = $this->kategori->get_datatables();
-    $no = $_POST['start'] + 1;
+    $no = $_POST['start'];
     $data = array();
     foreach ($list as $kategori) {
+      $no++;
       $row = array();
-      $row[] = $no++;
+      $row[] = $no;
       $row[] = $kategori->kategori;
       $row[] = $kategori->tipe;
 
@@ -81,7 +82,7 @@ class Kategori extends AUTH_Controller
     $this->_validate();
     $data = array(
       'kategori' => $this->input->post('kategori'),
-      'tipe' => $this->input->post('tipe'),
+      'tipe'     => $this->input->post('tipe'),
     );
     $this->kategori->update(array('id_kat' => $this->input->post('id_kat')), $data);
     echo json_encode(array("status" => TRUE));

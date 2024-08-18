@@ -6,8 +6,8 @@ class Admin_model extends CI_Model
   public function update($data, $id_user)
   {
     $this->db->where("id_user", $id_user);
-    $this->db->update("username", $data);
-
+    $this->db->set($data); //array of new data
+    $this->db->update($this->table);
     return $this->db->affected_rows();
   }
 

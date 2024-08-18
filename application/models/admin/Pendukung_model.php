@@ -98,7 +98,9 @@ class Pendukung_model extends CI_Model
 
   public function update($where, $data)
   {
-    $this->db->update($this->table, $data, $where);
+    $this->db->where($where);
+    $this->db->set($data); //array of new data
+    $this->db->update($this->table);
     return $this->db->affected_rows();
   }
 

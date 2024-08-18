@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body form">
         <form action="#" id="form" class="form-horizontal" enctype="multipart/form-data">
-          <input type="hidden" value="" name="id_fak" />
+          <input type="hidden" value="" name="id_dtw" />
           <div class="form-body">
             <div class="form-group has-error">
               <label class="col">Nama</label>
