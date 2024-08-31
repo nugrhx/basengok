@@ -25,9 +25,13 @@ class Home extends CI_Controller
   {
     $data['active'] = 'active';
 
+    $this->db->where('soft_delete', 0);
+    $query = $this->db->get('amenitas');
+    $list['amenitas'] = $query->result();
+
     $this->load->view('/layout/header');
     $this->load->view('/layout/nav', $data);
-    $this->load->view('amenitas/' . $page);
+    $this->load->view('amenitas/' . $page, $list);
     $this->load->view('/layout/footer');
   }
 

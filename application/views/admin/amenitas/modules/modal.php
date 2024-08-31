@@ -62,6 +62,14 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group" id="foto-preview">
+                  <label class="col">Foto</label>
+                  <img src="" id="foto-preview" style="max-width: 100px; max-height: 100px;" />
+                </div>
+                <div class="col">
+                  <input name="foto" class="form-control" type="file" required>
+                  <span class="help-block"></span>
+                </div>
               </div>
             </form>
           </div>

@@ -117,7 +117,7 @@ class Dtw extends AUTH_Controller
   public function ajax_update()
   {
     // Konfigurasi untuk upload file
-    $config['upload_path'] = "./assets/upload/images/dtw";
+    $config['upload_path'] = "assets/upload/image/dtw";
     $config['allowed_types'] = 'gif|jpg|png|jpeg';
     $config['encrypt_name'] = TRUE;
 
@@ -135,8 +135,8 @@ class Dtw extends AUTH_Controller
     if (!empty($_FILES['foto']['name'])) {
       if ($this->upload->do_upload('foto')) {
         // Jika upload berhasil, hapus file foto lama
-        if (file_exists("./assets/upload/images/dtw/" . $foto) && $foto != '') {
-          unlink("./assets/upload/images/dtw/" . $foto);
+        if (file_exists("assets/upload/image/dtw/" . $foto) && $foto != '') {
+          unlink("assets/upload/image/dtw/" . $foto);
         }
         // Simpan nama file baru yang telah diupload
         $uploadData = $this->upload->data();

@@ -55,8 +55,8 @@
   </div>
 </div>
 
-
-<!-- /.js -->
+<!-- jQuery v3.6.0-->
+<script src="<?= base_url('assets'); ?>/vendor/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
   var save_method; //for save method string
   var table;
@@ -169,7 +169,7 @@
         // Jika ada data foto, tampilkan di modal (misalnya, preview gambar)
         if (data.foto) {
           $('#foto-preview').show(); // Pastikan elemen untuk preview foto ada
-          $('#foto-preview').attr('src', "<?php echo base_url('assets/upload/images/dtw/') ?>" + data.foto);
+          $('#foto-preview').attr('src', "<?php echo base_url('assets/upload/image/dtw/') ?>" + data.foto);
         } else {
           $('#foto-preview').hide(); // Sembunyikan jika tidak ada foto
         }

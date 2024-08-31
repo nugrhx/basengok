@@ -4,7 +4,14 @@
 			<?php foreach ($dtw as $card): ?>
 				<div class="col-sm-4">
 					<div class="card">
-						<img src="<?php echo base_url('assets/upload/image/dtw/' . $card->foto); ?>" class="card-img-top" alt="<?php echo $card->nama; ?>">
+						<?php
+						$foto_path = 'assets/upload/image/dtw/' . $card->foto;
+						$default_img = 'assets/img/no-image.png';
+						$img_src = file_exists($foto_path) && !empty($card->foto) ? $foto_path : $default_img;
+						?>
+						<img src="<?php echo base_url($img_src); ?>"
+							class="card-img-top"
+							alt="<?php echo $card->nama; ?>">
 						<div class="card-body">
 							<h5 class="card-title"><strong><?php echo $card->nama; ?></strong></h5>
 							<p class="card-text pt-2">

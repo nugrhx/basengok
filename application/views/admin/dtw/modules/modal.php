@@ -53,6 +53,7 @@
               </div>
             </div>
             <div class="form-group" id="foto-preview">
+              <label class="col">Foto</label>
               <img src="" id="foto-preview" style="max-width: 100px; max-height: 100px;" />
             </div>
             <div class="col">
