@@ -1,74 +1,49 @@
-<!-- Bootstrap modal -->
-<div class="modal fade" id="modal_form" role="dialog">
-  <div class="modal-dialog">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Detail</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="label">Judul Modal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body form">
-        <form action="#" id="form" class="form-horizontal">
-          <input type="hidden" value="" name="id_fak" />
-          <div class="form-body">
-            <div class="form-group has-error">
-              <label class="col">Nama</label>
-              <div class="col">
-                <input name="nama" placeholder="Nama" class="form-control" type="text" required>
-                <span class="help-block"></span>
-              </div>
+      <div class="modal-body">
+        <!-- Carousel -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="<?php echo base_url('/assets/uploads/images/atv/1.jpg'); ?>" alt="Gambar 1">
             </div>
-            <div class="form-group has-error">
-              <label class="col">Deskripsi</label>
-              <div class="col">
-                <textarea name="deskripsi" placeholder="Deskripsi" class="form-control" type="text" rows="5" cols="33" required></textarea>
-                <span class="help-block"></span>
-              </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="<?php echo base_url('/assets/uploads/images/atv/1.jpg'); ?>" alt="Gambar 2">
             </div>
-            <div class="form-group has-error">
-              <label class="col">Kategori</label>
-              <div class="col">
-                <select name="kategori" class="form-control" required>
-                  <?php
-                  $this->db->select('kategori');
-                  $this->db->from('kategori');
-                  $this->db->where('tipe', 'dtw');
-                  $query = $this->db->get();
-                  $result = $query->result_array();
-
-                  $options = "";
-                  foreach ($result as $row) {
-                    $options .= "<option value='" . $row['kategori'] . "'>" . $row['kategori'] . "</option>";
-                  }
-                  echo $options;
-                  ?>
-                </select> <span class="help-block"></span>
-              </div>
-            </div>
-            <div class="form-group has-error">
-              <label class="col">Lokasi</label>
-              <div class="col">
-                <input name="lokasi" placeholder="Lokasi" class="form-control" type="text" required>
-                <span class="help-block"></span>
-              </div>
-            </div>
-            <div class="form-group has-error">
-              <label class="col">Foto</label>
-              <div class="col">
-                <input id="foto" type="file" accept="image/*" name="foto" multiple="multiple" />
-                <span class="help-block"></span>
-              </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="<?php echo base_url('/assets/uploads/images/atv/1.jpg'); ?>" alt="Gambar 3">
             </div>
           </div>
-        </form>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <!-- Nama -->
+        <h5 class="mt-4">Nama Item</h5>
+        <!-- Deskripsi -->
+        <p>Deskripsi item ini yang menjelaskan detail lebih lanjut tentang apa yang ditampilkan di modal ini.</p>
       </div>
       <div class="modal-footer">
-        <div class="row">
-          <div class="col">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-          </div>
-        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-primary">Simpan perubahan</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- End Bootstrap modal -->
+    </div>
+  </div>
+</div>
