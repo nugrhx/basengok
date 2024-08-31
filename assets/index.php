@@ -9,7 +9,7 @@
 
 	<style>
 		body {
-			background-image: url(../assets/uploads/images/404G.jpg);
+			background-image: url(../assets/upload/image/404G.jpg);
 			background-size: 100%;
 			background-repeat: no-repeat;
 			color: white;

@@ -54,4 +54,14 @@ class Home extends CI_Controller
     $this->load->view('dtw/' . $page, $list);
     $this->load->view('/layout/footer');
   }
+
+  public function dtw_detail($id_dtw)
+  {
+    $this->db->where('id_dtw', $id_dtw);
+    $this->db->where('soft_delete', 0);
+    $query = $this->db->get('dtw');
+    $data = $query->row();
+
+    echo json_encode($data);
+  }
 }

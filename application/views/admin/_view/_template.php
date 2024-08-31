@@ -3,7 +3,7 @@
 
 <head>
   <title>BASENGOK ADMIN | <?php echo @$judul; ?></title>
-  <link href='<?= base_url("assets/uploads/images/icon.png"); ?>' rel='shortcut icon' type='image/x-icon' />
+  <link href='<?= base_url("assets/upload/image/icon.png"); ?>' rel='shortcut icon' type='image/x-icon' />
   <!-- Tell the browser to be responsive to screen width -->
   <!-- meta -->
   <?php echo @$_meta; ?>

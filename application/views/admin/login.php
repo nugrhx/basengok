@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>BASENGOK | Log in</title>
-  <link href='<?= base_url("assets/uploads/images/icon.png"); ?>' rel='shortcut icon' type='image/x-icon' />
+  <link href='<?= base_url("assets/upload/image/icon.png"); ?>' rel='shortcut icon' type='image/x-icon' />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 

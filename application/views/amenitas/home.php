@@ -10,7 +10,7 @@
 			?>
 				<div class="col-sm-4">
 					<div class="card">
-						<img src="<?php echo base_url('/assets/uploads/images/atv/1.jpg'); ?>" class="card-img-top" alt="">
+						<img src="<?php echo base_url('/assets/upload/image/atv/1.jpg'); ?>" class="card-img-top" alt="">
 						<div class="card-body">
 							<h5 class="card-title"><strong><?php echo $amenitas->nama; ?></strong></h5>
 							<p class="card-text pt-2"><?php echo $amenitas->lokasi; ?></p>

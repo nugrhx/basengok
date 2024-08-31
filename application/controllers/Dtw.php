@@ -40,7 +40,7 @@ class Dtw extends AUTH_Controller
 
       // Pratinjau foto
       if (!empty($dtw->foto)) {
-        $row[] = '<img src="' . base_url('assets/upload/images/dtw/' . $dtw->foto) . '" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" />';
+        $row[] = '<img src="' . base_url('assets/upload/image/dtw/' . $dtw->foto) . '" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" />';
       } else {
         $row[] = 'No Image';
       }
@@ -75,7 +75,7 @@ class Dtw extends AUTH_Controller
   public function ajax_add()
   {
     // Konfigurasi untuk upload file
-    $config['upload_path'] = "assets/uploads/images/dtw";
+    $config['upload_path'] = "assets/upload/image/dtw";
     $config['allowed_types'] = 'gif|jpg|png|jpeg';
     $config['encrypt_name'] = TRUE;
 
