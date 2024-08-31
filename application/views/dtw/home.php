@@ -45,7 +45,7 @@
 
 					// Mengisi konten modal dengan data yang diterima
 					var content = '<img src="<?php echo base_url('assets/upload/image/dtw/') ?>' + data.foto + '" class="img-fluid" alt="' + data.nama + '" style="max-width: 100%; height: auto;" />';
-					content += '<br><h5><strong>' + data.nama + '</strong></h5>';
+					content += '<h5><strong>' + data.nama + '</strong></h5>';
 					content += '<p><strong>Deskripsi:</strong> ' + data.deskripsi + '</p>';
 					content += '<p><strong>Lokasi:</strong> ' + data.lokasi + '</p>';
 					content += '<p><strong>Kategori:</strong> ' + data.kategori + '</p>';

@@ -79,7 +79,7 @@
 
       // Load data for the table's content from an Ajax source
       "ajax": {
-        "url": "<?php echo site_url('Dtw/ajax_list') ?>",
+        "url": "<?php echo site_url('dtw/ajax_list') ?>",
         "type": "POST"
       },
 
