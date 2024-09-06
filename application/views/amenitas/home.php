@@ -30,7 +30,7 @@
 										echo '<a class="btn btn-block btn-primary" href="mailto:' . $card->kontak . '">Kontak</a>';
 									} else {
 										// Jika tidak sesuai dengan format di atas, tampilkan kontak apa adanya
-										echo '<a class="btn btn-lg btn-block btn-secondary text-xs"  readonly>Belum ada kontak</a>';
+										echo '<a class="btn btn-lg btn-block btn-secondary text-xs"  disabled>Belum ada kontak</a>';
 									} ?>
 								</div>
 								<div class="col-6">
@@ -39,7 +39,7 @@
 										echo '<a class="btn btn-block btn-outline-primary" href="' . $card->maps . '" target="_blank">Maps</a>';
 									} else {
 										// Jika tidak sesuai dengan format di atas, tampilkan kontak apa adanya
-										echo '<a class="btn btn-lg btn-block btn-outline-secondary text-xs"  readonly>Belum ada Pin</a>';
+										echo '<a class="btn btn-lg btn-block btn-outline-secondary text-xs"  disabled>Belum ada Pin</a>';
 									} ?>
 								</div>
 							</div>

@@ -50,8 +50,13 @@
 				success: function(data) {
 					console.log(data); // Cek data di console
 
+					// Cek apakah foto tersedia atau tidak
+					var foto_path = "<?php echo base_url('assets/upload/image/dtw/'); ?>" + data.foto;
+					var default_img = "<?php echo base_url('assets/img/no-image.png'); ?>";
+					var img_src = data.foto && data.foto !== "" ? foto_path : default_img;
+
 					// Mengisi konten modal dengan data yang diterima
-					var content = '<img src="<?php echo base_url('assets/upload/image/dtw/') ?>' + data.foto + '" class="img-fluid" alt="' + data.nama + '" style="max-width: 100%; height: auto;" />';
+					var content = '<img src="' + img_src + '" class="img-fluid" alt="' + data.nama + '" style="max-width: 100%; height: auto;" />';
 					content += '<h5><strong>' + data.nama + '</strong></h5>';
 					content += '<p><strong>Deskripsi:</strong> ' + data.deskripsi + '</p>';
 					content += '<p><strong>Lokasi:</strong> ' + data.lokasi + '</p>';
@@ -63,6 +68,7 @@
 					$('#modal-body-content').html('<p>Terjadi kesalahan dalam memuat data.</p>');
 				}
 			});
+
 		});
 	});
 </script>
