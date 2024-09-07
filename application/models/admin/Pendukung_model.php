@@ -79,22 +79,11 @@ class Pendukung_model extends CI_Model
     return $query->row();
   }
 
-  // public function save($data)
-  // {
-  //   $this->db->insert($this->table, $data);
-  //   return $this->db->insert_id();
-  // }
-
-  function save_upload($nama, $file)
+  public function save($data)
   {
-    $data = array(
-      'nama' => $nama,
-      'file' => $file
-    );
-    $result = $this->db->insert('pendukung', $data);
-    return $result;
+    $this->db->insert($this->table, $data);
+    return $this->db->insert_id();
   }
-
 
   public function update($where, $data)
   {

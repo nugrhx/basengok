@@ -27,22 +27,32 @@ class Pendukung extends AUTH_Controller
 
   public function ajax_list()
   {
-
     $list = $this->pendukung->get_datatables();
     $no = $_POST['start'] + 1;
     $data = array();
     foreach ($list as $pendukung) {
       $row = array();
       $row[] = $no++;
-      $row[] = $pendukung->pendukung;
+      $row[] = $pendukung->nama;
 
-      //add html for action
+      // Cek apakah file adalah gambar
+      $file_extension = pathinfo($pendukung->file, PATHINFO_EXTENSION);
+      $image_extensions = array('jpg', 'jpeg', 'png', 'gif');
+
+      if (in_array(strtolower($file_extension), $image_extensions)) {
+        // Jika file adalah gambar, tampilkan pratinjau
+        $row[] = '<img src="' . base_url('assets/upload/pendukung/' . $pendukung->file) . '" alt="' . $pendukung->nama . '" height="50">';
+      } else {
+        // Jika bukan gambar, tambahkan onclick untuk mengunduh file
+        $row[] = '<a href="' . base_url('assets/upload/pendukung/' . $pendukung->file) . '" target="_blank">' . $pendukung->file . '</a>';
+      }
+
+      // Tambahkan HTML untuk tombol aksi
       $row[] = '
             <a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_pendukung(' . "'" . $pendukung->id_pen . "'" . ')"><i class="fa fa-edit fa-xs"></i> Edit</a>
-        
             <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_pendukung(' . "'" . $pendukung->id_pen . "'" . ')"><i class="fa fa-trash fa-xs"></i> Delete</a>';
 
-      // check if soft_delete status is 0
+      // Cek status soft_delete
       if ($pendukung->soft_delete == 0) {
         $data[] = $row;
       }
@@ -54,9 +64,10 @@ class Pendukung extends AUTH_Controller
       "recordsFiltered" => $this->pendukung->count_filtered(),
       "data" => $data,
     );
-    //output to json format
+    // Output dalam format JSON
     echo json_encode($output);
   }
+
 
   public function ajax_edit($id)
   {
@@ -64,73 +75,111 @@ class Pendukung extends AUTH_Controller
     echo json_encode($data);
   }
 
-  public function do_upload()
+  public function ajax_add()
   {
-    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //   $uploadDir = 'assets/uploads/pendukung/';
-    //   $errors = [];
-    //   $uploadedFiles = [];
+    // Konfigurasi untuk upload file
+    $config['upload_path'] = "assets/upload/pendukung";
+    $config['allowed_types'] = 'gif|jpg|png|pdf|xlsx|xls|doc|docx';
+    $config['encrypt_name'] = FALSE; // Jangan enkripsi nama file agar bisa kita atur sendiri
 
-    //   foreach ($_FILES['file']['tmp_name'] as $key => $tmpName) {
-    //     $fileName = basename($_FILES['file']['name'][$key]);
-    //     $targetFilePath = $uploadDir . $fileName;
-
-    //     if (move_uploaded_file($tmpName, $targetFilePath)) {
-    //       $uploadedFiles[] = $fileName; // Collect uploaded file names
-    //     } else {
-    //       $errors[] = "Error uploading file: $fileName";
-    //     }
-    //   }
-
-    $config['upload_path'] = ".assets/uploads/pendukung/";
-    $config['allowed_types'] = 'pdf|doc|docx|xls|xlsx|ppt|pptx|jpg|jpeg|webp|png';
-    $config['encrypt_name'] = TRUE;
-
+    // Memuat library upload dengan konfigurasi yang sudah disiapkan
     $this->load->library('upload', $config);
-    if ($this->upload->do_upload("file")) {
-      $data = array('upload_data' => $this->upload->data());
 
-      $nama = $this->input->post('nama');
-      $file = $data['upload_data']['file_name'];
-
-      $result = $this->pendukung->save_upload($judul, $image); //kirim value ke model 
-      echo json_decode($result);
-    }
-  }
-
-  public function ajax_update()
-  {
+    // Lakukan validasi terlebih dahulu
     $this->_validate();
-    $data = array(
-      'pendukung' => $this->input->post('pendukung'),
-    );
 
-    // Handle file input
+    // Variabel untuk menyimpan nama file yang diupload
+    $file = '';
+
+    // Cek apakah upload file berhasil
     if (!empty($_FILES['file']['name'])) {
-      $config['upload_path'] = './uploads/'; // Specify the upload directory
-      $config['allowed_types'] = 'gif|jpg|png|pdf|xlsx|xls|doc|docx';
-      $config['max_size'] = 2048; // Specify the maximum file size in kilobytes
+      // Dapatkan nama pengguna dari input
+      $nama = $this->input->post('nama');
+      // Ganti spasi pada nama dengan underscore (opsional)
+      $nama_clean = str_replace(' ', '_', $nama);
 
-      $this->load->library('upload', $config);
+      // Dapatkan ekstensi file
+      $file_extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
-      if (!$this->upload->do_upload('file')) {
+      // Tentukan nama baru file
+      $new_filename = 'pendukung_' . $nama_clean . '.' . $file_extension;
+
+      // Set nama file baru dalam konfigurasi upload
+      $config['file_name'] = $new_filename;
+      $this->upload->initialize($config);
+
+      // Upload file
+      if ($this->upload->do_upload('file')) {
+        $uploadData = $this->upload->data();
+        $file = $uploadData['file_name']; // Mendapatkan nama file yang baru
+      } else {
+        // Jika upload gagal, tampilkan pesan error
         $data['inputerror'][] = 'file';
         $data['error_string'][] = $this->upload->display_errors('', '');
         $data['status'] = FALSE;
-      } else {
-        $upload_data = $this->upload->data();
-        $data['file'] = $upload_data['file_name'];
+        echo json_encode($data);
+        exit();
       }
     }
 
-    if ($data['status'] === FALSE) {
-      echo json_encode($data);
-      exit();
+    // Jika upload berhasil, simpan data ke database
+    $data = array(
+      'nama'      => $this->input->post('nama'),
+      'file'      => $file, // Simpan nama file yang diupload
+    );
+
+    $insert = $this->pendukung->save($data);
+    echo json_encode(array("status" => TRUE));
+  }
+
+
+  public function ajax_update()
+  {
+    // Konfigurasi untuk upload file
+    $config['upload_path'] = "assets/upload/pendukung";
+    $config['allowed_types'] = 'jpg|png|pdf|xlsx|xls|doc|docx'; // Perubahan tipe file
+    $config['encrypt_name'] = TRUE;
+
+    // Memuat library upload dengan konfigurasi yang sudah disiapkan
+    $this->load->library('upload', $config);
+
+    // Lakukan validasi terlebih dahulu
+    $this->_validate();
+
+    // Ambil data lama untuk mendapatkan nama file yang sudah ada
+    $old_data = $this->pendukung->get_by_id($this->input->post('id_pen'));
+    $file = $old_data->file;
+
+    // Cek apakah ada file baru yang diupload
+    if (!empty($_FILES['file']['name'])) {
+      if ($this->upload->do_upload('file')) {
+        // Jika upload berhasil, hapus file lama
+        if (file_exists("assets/upload/pendukung/" . $file) && $file != '') {
+          unlink("assets/upload/pendukung/" . $file);
+        }
+        // Simpan nama file baru yang telah diupload
+        $uploadData = $this->upload->data();
+        $file = $uploadData['file_name'];
+      } else {
+        // Jika upload gagal, tampilkan pesan error
+        $data['inputerror'][] = 'file';
+        $data['error_string'][] = $this->upload->display_errors('', '');
+        $data['status'] = FALSE;
+        echo json_encode($data);
+        exit();
+      }
     }
+
+    // Jika tidak ada file baru yang diupload, gunakan nama file yang lama
+    $data = array(
+      'nama'      => $this->input->post('nama'),
+      'file'      => $file, // Simpan nama file
+    );
 
     $this->pendukung->update(array('id_pen' => $this->input->post('id_pen')), $data);
     echo json_encode(array("status" => TRUE));
   }
+
 
   public function ajax_delete($id)
   {
@@ -145,10 +194,25 @@ class Pendukung extends AUTH_Controller
     $data['inputerror'] = array();
     $data['status'] = TRUE;
 
-    if ($this->input->post('pendukung') == '') {
-      $data['inputerror'][] = 'pendukung';
-      $data['error_string'][] = 'Pendukung is required';
+    if ($this->input->post('nama') == '') {
+      $data['inputerror'][] = 'nama';
+      $data['error_string'][] = 'nama is required';
       $data['status'] = FALSE;
+    }
+
+    if (empty($_FILES['file']['name'])) {
+      $data['inputerror'][] = 'file';
+      $data['error_string'][] = 'file is required';
+      $data['status'] = FALSE;
+    } else {
+      $allowed_types = array('jpg', 'jpeg', 'png', 'pdf', 'xlsx', 'xls', 'doc', 'docx',);
+      $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+      if (!in_array(strtolower($ext), $allowed_types)) {
+        $data['inputerror'][] = 'file';
+        $data['error_string'][] = 'Invalid file type. Only JPG, JPEG, PNG, PDF, XLSX, XLS, DOCX and DOC are allowed';
+        $data['status'] = FALSE;
+      }
     }
 
     if ($data['status'] === FALSE) {

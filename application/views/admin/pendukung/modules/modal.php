@@ -13,7 +13,7 @@
             <div class="form-group has-error">
               <label class="col">Nama Data Pendukung</label>
               <div class="col">
-                <input name="nama" placeholder="Nama Data Pendukung" class="form-control" type="text" required>
+                <input name="nama" placeholder="Nama File Pendukung" class="form-control" type="text" required>
                 <span class="help-block"></span>
               </div>
             </div>

@@ -10,12 +10,13 @@
             <div class="col-md-4">
               <button class=" form-control btn btn-success" onclick="add_pendukung()"><i class="fa fa-plus fa-sm"></i> Tambah Data</button>
             </div>
-            <!-- <div class="col-md-3">
-              <a href="<?php echo base_url('pendukung/export'); ?>" class="form-control btn btn-default"><i class="fa fa-file-excel fa-sm"></i> Export Data Excel</a>
-            </div>
-            <div class="col-md-2">
-              <button class="form-control btn btn-default" data-toggle="modal" data-target="#import-dtw"><i class="fa fa-file-pdf fa-sm"></i> Cetak PDF</button>
-            </div> -->
+            <!-- 
+                  <div class="col-md-3">
+                    <a href="<?php echo base_url('pendukung/export'); ?>" class="form-control btn btn-default"><i class="fa fa-file-excel fa-sm"></i> Export Data Excel</a>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="form-control btn btn-default" data-toggle="modal" data-target="#import-pendukung"><i class="fa fa-file-pdf fa-sm"></i> Cetak PDF</button>
+                  </div> -->
           </div>
         </div>
         <!-- /.card-header -->
@@ -26,7 +27,8 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama File Pendukung</th>
+                <th>Nama</th>
+                <th>File</th>
                 <th style="width:170px;">Action</th>
               </tr>
             </thead>
@@ -35,7 +37,8 @@
             <tfoot>
               <tr>
                 <th>No</th>
-                <th>Nama File Pendukung</th>
+                <th>Nama</th>
+                <th>File</th>
                 <th style="width:170px;">Action</th>
               </tr>
             </tfoot>
@@ -46,9 +49,7 @@
   </div>
 </div>
 
-
-<? ?>
-<!-- /.js -->
+<script src="<?= base_url('assets'); ?>/vendor/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
   var save_method; //for save method string
   var table;
@@ -81,16 +82,8 @@
     });
   });
 
-
   function reload_table() {
-    table.clear(); // Clear existing data
-
-    files.forEach(function(file) {
-      table.row.add([
-        file, // Add file name or other relevant data
-        // Add other columns as needed
-      ]).draw();
-    }); //reload datatable ajax 
+    table.ajax.reload(null, false); //reload datatable ajax 
   }
 
   function add_pendukung() {
@@ -99,56 +92,73 @@
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Tambah Data Pendukung'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Form pendukung'); // Set Title to Bootstrap modal title
   }
 
   function save() {
-    var formData = new FormData($('#form')[0]);
+    $('#btnSave').text('saving...'); // Ubah teks tombol
+    $('#btnSave').attr('disabled', true); // Nonaktifkan tombol
+
+    var url;
+    if (save_method == 'add') {
+      url = "<?php echo site_url('pendukung/ajax_add') ?>";
+    } else {
+      url = "<?php echo site_url('pendukung/ajax_update') ?>";
+    }
+
+    var formData = new FormData($('#form')[0]); // Menggunakan FormData untuk menangani file upload
 
     $.ajax({
-      url: "<?php echo site_url('pendukung/do_upload') ?>", // URL to your PHP controller
-      type: 'POST',
-      data: formData, //penggunaan FormData
-      processData: false,
-      contentType: false,
-      cache: false,
-      async: false,
+      url: url,
+      type: "POST",
+      data: formData,
+      contentType: false, // Penting untuk diatur saat menggunakan FormData
+      processData: false, // Penting untuk diatur saat menggunakan FormData
+      dataType: "JSON",
       success: function(data) {
-        var response = JSON.parse(data);
-        if (response.status === 'success') {
-          alert('Files uploaded successfully!');
+        if (data.status) {
           $('#modal_form').modal('hide');
-          reload_table(response.files); // Refresh DataTable with new files
+          alert('Data berhasil disimpan');
+          reload_table();
         } else {
-          alert('Error uploading files: ' + response.errors.join(', '));
+          for (var i = 0; i < data.inputerror.length; i++) {
+            $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error'); // Tambahkan kelas error
+            $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]); // Tampilkan pesan error
+          }
         }
+        $('#btnSave').text('save'); // Ubah teks tombol kembali
+        $('#btnSave').attr('disabled', false); // Aktifkan tombol
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        alert('Error uploading files!');
+        alert('Error adding / update data');
+        $('#btnSave').text('save'); // Ubah teks tombol kembali
+        $('#btnSave').attr('disabled', false); // Aktifkan tombol
       }
     });
   }
 
   function edit_pendukung(id) {
     save_method = 'update';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
+    $('#form')[0].reset(); // reset form di modals
+    $('.form-group').removeClass('has-error'); // hapus kelas error
+    $('.help-block').empty(); // hapus string error
 
-    //Ajax Load data from ajax
+    // Ajax Load data dari server
     $.ajax({
       url: "<?php echo site_url('pendukung/ajax_edit/') ?>/" + id,
       type: "GET",
       dataType: "JSON",
       success: function(data) {
         $('[name="id_pen"]').val(data.id_pen);
-        $('[name="pendukung"]').val(data.pendukung);
-        $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Edit DTW'); // Set title to Bootstrap modal title
+        $('[name="nama"]').val(data.nama);
+        $('[name="file"]').val(data.file);
+
+        $('#modal_form').modal('show'); // tampilkan modal bootstrap saat data selesai dimuat
+        $('.modal-title').text('Edit pendukung'); // Ubah judul modal
 
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        alert('Error get data from ajax');
+        alert('Error mendapatkan data dari server');
       }
     });
   }

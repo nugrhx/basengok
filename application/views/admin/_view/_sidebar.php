@@ -4,7 +4,7 @@
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="text-center mt-2">
-      <img src="<?= base_url('assets'); ?>/uploads/images/logo.png" alt="" class="img-fluid" alt="Responsive image" style="width:80%">
+      <img src="<?= base_url('assets'); ?>//upload/image/logo.png" alt="" class="img-fluid" alt="Responsive image" style="width:80%">
     </div>
 
     <nav class="mt-2">
@@ -93,7 +93,7 @@
 
 <script>
   function preloadImage(url) {
-    var img = new Image("<?= base_url('assets'); ?>/uploads/images/logo.png");
+    var img = new Image("<?= base_url('assets'); ?>//upload/image/logo.png");
     img.src = url;
   }
 </script>
