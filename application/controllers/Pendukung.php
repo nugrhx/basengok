@@ -41,7 +41,7 @@ class Pendukung extends AUTH_Controller
 
       if (in_array(strtolower($file_extension), $image_extensions)) {
         // Jika file adalah gambar, tampilkan pratinjau
-        $row[] = '<img src="' . base_url('assets/upload/pendukung/' . $pendukung->file) . '" alt="' . $pendukung->nama . '" height="50">';
+        $row[] = '<a href="' . base_url('assets/upload/pendukung/' . $pendukung->file) . '" target="_blank"> <img src="' . base_url('assets/upload/pendukung/' . $pendukung->file) . '" alt="' . $pendukung->nama . '" height="50"></a>';
       } else {
         // Jika bukan gambar, tambahkan onclick untuk mengunduh file
         $row[] = '<a href="' . base_url('assets/upload/pendukung/' . $pendukung->file) . '" target="_blank">' . $pendukung->file . '</a>';
@@ -102,7 +102,7 @@ class Pendukung extends AUTH_Controller
       $file_extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
       // Tentukan nama baru file
-      $new_filename = 'pendukung_' . $nama_clean . '.' . $file_extension;
+      $new_filename = $nama_clean . '.' . $file_extension;
 
       // Set nama file baru dalam konfigurasi upload
       $config['file_name'] = $new_filename;
