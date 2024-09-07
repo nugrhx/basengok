@@ -39,9 +39,13 @@ class Home extends CI_Controller
   {
     $data['active'] = 'active';
 
+    $this->db->where('soft_delete', 0);
+    $query = $this->db->get('pendukung');
+    $list['pendukung'] = $query->result();
+
     $this->load->view('/layout/header');
     $this->load->view('/layout/nav', $data);
-    $this->load->view('pendukung/' . $page);
+    $this->load->view('pendukung/' . $page, $list);
     $this->load->view('/layout/footer');
   }
 

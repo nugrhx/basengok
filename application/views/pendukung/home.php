@@ -1,24 +1,68 @@
 <div class="container">
-	<div class="px-4 py-5 my-5 text-center">
-
-		<img class="d-block mx-auto mb-4 z-n1" src="<?= base_url('assets/img/logo.png') ?>" alt="" width="54px">
-
-		<p class="px-4">
-			Selamat Datang di
-		</p>
-
-		<h1 style="font-weight: 600; font-size: 4rem;">
-			BASENGOK
-		</h1>
-
-		<div class="col-lg-4 mx-auto" style="font-size: 14px;">
-			<p class="lead mb-4">DINAS KEBUDAYAAN, KEPEMUDAAN DAN OLAHRAGA, DAN PARIWISATA KABUPATEN PULANG PISAU.</p>
-			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-				<a href="/dtw" class="btn btn-light btn-md px-4 gap-3 rounded-5">
-					EXPLORE BASENGOK
-					<i data-feather="chevron-right" class="text-black"></i>
-				</a>
-			</div>
+	<div class="pt-5">
+		<div class="container">
+			<table id="pendukungTable" class="table table-striped table-bordered" style="width:100%">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Nama</th>
+						<th>Jumlah Unduhan</th>
+						<th>Download</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Nama</th>
+						<th>Jumlah Unduhan</th>
+						<th>Download</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		// Inisialisasi DataTable dengan AJAX
+		$('#pendukungTable').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "<?php echo base_url('pendukung/ajax_list'); ?>",
+				"type": "POST"
+			},
+			"columns": [{
+					"data": "no"
+				},
+				{
+					"data": "nama"
+				},
+				{
+					"data": "file",
+					"render": function(data, type, row) {
+						var file_extension = data.split('.').pop().toLowerCase();
+						var image_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+						// Cek apakah file adalah gambar
+						if (image_extensions.includes(file_extension)) {
+							return '<img src="' + '<?php echo base_url("assets/upload/image/dtw/"); ?>' + data + '" alt="' + row.nama + '" width="50" height="50">';
+						} else {
+							// Jika bukan gambar, tampilkan nama file
+							return data;
+						}
+					}
+				},
+				{
+					"data": null,
+					"render": function(data, type, row) {
+						return '<a href="' + '<?php echo base_url("assets/upload/image/dtw/"); ?>' + row.file + '" class="btn btn-sm btn-primary" download>Download</a>';
+					}
+				}
+			]
+		});
+	});
+</script>
