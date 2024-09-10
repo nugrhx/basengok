@@ -1,39 +1,33 @@
 <div class="container">
 	<div class="pt-5">
 		<div class="container">
-			<table id="pendukungTable" class="table table-striped table-bordered" style="width:100%">
+			<table id="table" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
 						<th>No</th>
 						<th>Nama</th>
-						<th>Jumlah Unduhan</th>
 						<th>Download</th>
 					</tr>
 				</thead>
 				<tbody>
 				</tbody>
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Jumlah Unduhan</th>
-						<th>Download</th>
-					</tr>
-				</thead>
 			</table>
 		</div>
 	</div>
 </div>
 
+<!-- jQuery v3.6.0-->
+<script src="<?= base_url('assets'); ?>/vendor/plugins/jquery/jquery.min.js"></script>
+
+<!-- Tambahkan script DataTables dan fungsi download -->
 <script>
 	$(document).ready(function() {
-		// Inisialisasi DataTable dengan AJAX
-		$('#pendukungTable').DataTable({
+		$('#table').DataTable({
 			"processing": true,
-			"serverSide": true,
+			"serverSide": false,
 			"ajax": {
-				"url": "<?php echo base_url('pendukung/ajax_list'); ?>",
-				"type": "POST"
+				"url": "<?php echo base_url('home/pendukung_get_data'); ?>", // Ganti dengan URL method controller
+				"type": "GET"
 			},
 			"columns": [{
 					"data": "no"
@@ -44,25 +38,15 @@
 				{
 					"data": "file",
 					"render": function(data, type, row) {
-						var file_extension = data.split('.').pop().toLowerCase();
-						var image_extensions = ['jpg', 'jpeg', 'png', 'gif'];
-
-						// Cek apakah file adalah gambar
-						if (image_extensions.includes(file_extension)) {
-							return '<img src="' + '<?php echo base_url("assets/upload/image/dtw/"); ?>' + data + '" alt="' + row.nama + '" width="50" height="50">';
-						} else {
-							// Jika bukan gambar, tampilkan nama file
-							return data;
-						}
-					}
-				},
-				{
-					"data": null,
-					"render": function(data, type, row) {
-						return '<a href="' + '<?php echo base_url("assets/upload/image/dtw/"); ?>' + row.file + '" class="btn btn-sm btn-primary" download>Download</a>';
+						// Menggunakan row.id_pen untuk ID unik
+						return '<a href="' + data + '" class="btn btn-primary download-btn" data-id="' + row.id_pen + '" target="_blank">Download</a>';
 					}
 				}
 			]
+		});
+
+		$('#search').on('keyup', function() {
+			table.search(this.value).draw();
 		});
 	});
 </script>

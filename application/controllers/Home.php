@@ -35,17 +35,35 @@ class Home extends CI_Controller
     $this->load->view('/layout/footer');
   }
 
+  public function pendukung_get_data()
+  {
+    $this->db->where('soft_delete', 0);
+    $query = $this->db->get('pendukung');
+    $data = $query->result();
+
+    $result = array();
+    $no = 1;
+
+    foreach ($data as $row) {
+      $result[] = array(
+        'no' => $no++, // Berikan no urut
+        'nama' => $row->nama,
+        'file' => base_url('assets/upload/pendukung/' . $row->file)
+      );
+    }
+
+    // Pastikan respons JSON dikirim dengan benar
+    header('Content-Type: application/json');
+    echo json_encode(array('data' => $result));
+  }
+
   public function pendukung(string $page = 'home')
   {
     $data['active'] = 'active';
 
-    $this->db->where('soft_delete', 0);
-    $query = $this->db->get('pendukung');
-    $list['pendukung'] = $query->result();
-
     $this->load->view('/layout/header');
     $this->load->view('/layout/nav', $data);
-    $this->load->view('pendukung/' . $page, $list);
+    $this->load->view('pendukung/' . $page);
     $this->load->view('/layout/footer');
   }
 
