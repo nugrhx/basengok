@@ -3,7 +3,7 @@
         <div class="container-fluid">
           <div class="row">
             <!-- ./small card -->
-            <div class="col-lg-4 col-6">
+            <div class="col-lg-6 col-6">
               <!-- small box -->
               <div class="small-box bg-primary">
                 <div class="inner">
@@ -18,7 +18,7 @@
               </div>
             </div>
             <!-- ./small card -->
-            <div class="col-lg-4  col-6">
+            <div class="col-lg-6  col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
@@ -31,7 +31,7 @@
                 <a href="<?= base_url(); ?>admin/amenitas" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./small card -->
-            <div class="col-lg-4 col-6">
+            <div class="col-lg-6 col-6">
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
@@ -42,6 +42,19 @@
                   <i class="fa fa-solid fa-book fa-xl"></i>
                 </div>
                 <a href="<?= base_url(); ?>admin/kategori" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-6">
+              <!-- small box -->
+              <div class="small-box bg-gradient-warning">
+                <div class="inner">
+                  <h3><?php echo $j_Pen ?></h3>
+                  <p>Data Pendukung</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-solid fa-book fa-xl"></i>
+                </div>
+                <a href="<?= base_url(); ?>admin/pendukung" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>

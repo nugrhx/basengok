@@ -14,6 +14,7 @@ class Admin extends AUTH_Controller
         $pagedata['j_Dtw'] = $this->adminHome_model->j_Dtw();
         $pagedata['j_Amn'] = $this->adminHome_model->j_Amn();
         $pagedata['j_Kat'] = $this->adminHome_model->j_Kat();
+        $pagedata['j_Pen'] = $this->adminHome_model->j_Pen();
 
         $pagedata['jumlah_amenitas'] = $this->adminHome_model->jumlah_amenitas();
         $pagedata['jumlah_dtw'] = $this->adminHome_model->jumlah_dtw();

@@ -34,6 +34,16 @@ class adminHome_model extends CI_Model
     return $jKat;
   }
 
+  public function j_Pen()
+  {
+    $jPen_base = $this->db->query("SELECT * FROM pendukung")->result();
+    $j_pendukung = count($jPen_base);
+    $jPen = json_encode($jPen_base);
+
+    return $j_pendukung;
+    return $jPen;
+  }
+
   public function jumlah_dtw()
   {
     $jDtw_base = $this->db->query("SELECT * FROM dtw")->result();
