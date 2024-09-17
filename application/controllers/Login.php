@@ -25,19 +25,20 @@ class Login extends CI_Controller
     $this->form_validation->set_rules('username', 'Username', 'required|min_length[4]|max_length[15]');
     $this->form_validation->set_rules('password', 'Password', 'required');
 
-    $this->session->set_userdata($newdata);
     if ($this->form_validation->run() == TRUE) {
-      $username = trim($_POST['username']);
-      $password = trim($_POST['password']);
+      $username = trim($this->input->post('username'));
+      $password = trim($this->input->post('password'));
 
-      $data = $this->Login_model->login($username, $password);
+      // Panggil fungsi login dari model
+      $user = $this->Login_model->login($username, $password);
 
-      if ($data == false) {
-        $this->session->set_flashdata('error_msg', 'Username / Password Anda Salah.');
+      if ($user == false) {
+        $this->session->set_flashdata('error_msg', 'Username atau Password Anda Salah.');
         redirect('login');
       } else {
+        // Buat session jika login berhasil
         $session = [
-          'userdata' => $data,
+          'userdata' => $user,
           'status' => "Logged in"
         ];
         $this->session->set_userdata($session);
@@ -55,6 +56,3 @@ class Login extends CI_Controller
     redirect('login');
   }
 }
-
-/* End of file Login.php */
-/* Location: ./application/controllers/Login.php */

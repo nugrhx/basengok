@@ -53,8 +53,10 @@ $route['default_controller'] = 'home';
 $route['dtw'] = 'home/dtw';
 $route['amenitas'] = 'home/amenitas';
 $route['pendukung'] = 'home/pendukung';
+$route['register'] = 404;
 
 $route['admin/login'] = 'login';
+$route['admin/register'] = 404;
 $route['admin/admin'] = 'admin';
 $route['admin/dtw'] = 'dtw';
 $route['admin/amenitas'] = 'amenitas';
