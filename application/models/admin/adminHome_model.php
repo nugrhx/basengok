@@ -5,7 +5,7 @@ class adminHome_model extends CI_Model
 {
   public function j_Dtw()
   {
-    $jDtw_base = $this->db->query("SELECT * FROM dtw")->result();
+    $jDtw_base = $this->db->query("SELECT * FROM dtw WHERE soft_delete = 0")->result();
     $j_dtw = count($jDtw_base);
     $jDtw = json_encode($jDtw_base);
 
@@ -15,7 +15,7 @@ class adminHome_model extends CI_Model
 
   public function j_Amn()
   {
-    $jAmn_base = $this->db->query("SELECT * FROM amenitas")->result();
+    $jAmn_base = $this->db->query("SELECT * FROM amenitas WHERE soft_delete = 0")->result();
     $j_amenitas = count($jAmn_base);
     $jAmn = json_encode($jAmn_base);
 
@@ -26,7 +26,7 @@ class adminHome_model extends CI_Model
 
   public function j_Kat()
   {
-    $jKat_base = $this->db->query("SELECT * FROM kategori")->result();
+    $jKat_base = $this->db->query("SELECT * FROM kategori WHERE soft_delete = 0")->result();
     $j_kategori = count($jKat_base);
     $jKat = json_encode($jKat_base);
 
@@ -36,7 +36,7 @@ class adminHome_model extends CI_Model
 
   public function j_Pen()
   {
-    $jPen_base = $this->db->query("SELECT * FROM pendukung")->result();
+    $jPen_base = $this->db->query("SELECT * FROM pendukung WHERE soft_delete = 0")->result();
     $j_pendukung = count($jPen_base);
     $jPen = json_encode($jPen_base);
 
@@ -53,7 +53,7 @@ class adminHome_model extends CI_Model
 
   public function jumlah_amenitas()
   {
-    $jAmn_base = $this->db->query("SELECT * FROM amenitas")->result();
+    $jAmn_base = $this->db->query("SELECT * FROM amenitas ")->result();
 
     return $jAmn_base;
   }
