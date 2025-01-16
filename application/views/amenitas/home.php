@@ -34,11 +34,11 @@
 									} ?>
 								</div>
 								<div class="col-6">
-									<?php if ($card->kontak != 0) {
-										// Jika kontak dimulai dengan "08", maka dianggap sebagai nomor telepon
+									<?php if ($card->maps != NULL) {
+										// Jika maps dimulai dengan "08", maka dianggap sebagai nomor telepon
 										echo '<a class="btn btn-block btn-outline-primary" href="' . $card->maps . '" target="_blank">Maps</a>';
 									} else {
-										// Jika tidak sesuai dengan format di atas, tampilkan kontak apa adanya
+										// Jika tidak sesuai dengan format di atas, tampilkan maps apa adanya
 										echo '<a class="btn btn-lg btn-block btn-outline-secondary text-xs"  disabled>Belum ada Pin</a>';
 									} ?>
 								</div>
