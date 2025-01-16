@@ -55,7 +55,10 @@ class Amenitas extends AUTH_Controller
         ')"><i class="fa fa-edit fa-xs"></i> Edit</a>
                 <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_amenitas(' . "'" . $amenitas->id_amn . "'" . ')"><i class="fa fa-trash fa-xs"></i> Delete</a>';
 
-      $data[] = $row;
+      // Tambahkan baris jika status soft_delete adalah 0
+      if ($amenitas->soft_delete == 0) {
+        $data[] = $row;
+      }
     }
 
     $output = array(
